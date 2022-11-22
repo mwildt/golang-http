@@ -108,7 +108,7 @@ func (router *Router) handle(prefix string, w http.ResponseWriter, r *http.Reque
 	isExactMatch := prefix == r.URL.Path
 
 	if !handled && isExactMatch && router.handler != nil {
-		log.Printf("Handle %s", r.URL.Path)
+		log.Printf("handle request '%s'", r.URL.Path)
 		router.handler.ServeHTTP(w, r)
 		return true
 	}

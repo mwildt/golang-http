@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -23,7 +24,6 @@ func ReadParameters(r *http.Request) ParameterMap {
 	} else {
 		return parameterMap.(ParameterMap)
 	}
-
 }
 
 type ParameterDescription interface {
@@ -64,6 +64,18 @@ func MatchingParamter(name string, pattern string) ParameterDescription {
 				return nil
 			}
 		},
+	}
+}
+
+func ReadIntParameter(r *http.Request, parameterName string) (bool, int) {
+	parameterMap := r.Context().Value(ContextParamsKey).(ParameterMap)
+	key := ParamsKey(parameterName)
+	if stringValue, ok := parameterMap[key]; !ok {
+		return false, 0
+	} else if intValue, err := strconv.Atoi(stringValue); err != nil {
+		return false, 0
+	} else {
+		return true, intValue
 	}
 }
 
