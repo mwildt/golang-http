@@ -1,2 +1,2 @@
-# GOlang Http
-A Simple Package containig http utility including a small http-server router.
+# Golang Http
+A simple package containig http utility including a small http-server router.
